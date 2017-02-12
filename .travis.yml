@@ -3,11 +3,17 @@ sudo: false
 language: perl
 perl:
   - "5.24"
+env:
+  - gp_version="4.6.0"
+  - gp_version="4.6.6"
+  - gp_version="5.0.0"
+  - gp_version="5.0.4"
+  - gp_version="5.0.5"
 
 install:
   # Install gnuplot 5 for plot tests. (Not available on Ubuntu 12.04)
   - cd /tmp
-  - gp_version=5.0.1
+  - echo "gp_version:" $gp_version
   - wget https://sourceforge.net/projects/gnuplot/files/gnuplot/$gp_version/gnuplot-$gp_version.tar.gz
   - tar -xf gnuplot-$gp_version.tar.gz
   - cd gnuplot-$gp_version
@@ -26,3 +32,6 @@ install:
 script:
   - make
   - prove --verbose --blib t
+
+notifications:
+  email: false
