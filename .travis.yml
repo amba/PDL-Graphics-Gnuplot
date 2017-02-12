@@ -1,0 +1,28 @@
+sudo: false
+
+language: perl
+perl:
+  - "5.24"
+
+install:
+  # Install gnuplot 5 for plot tests. (Not available on Ubuntu 12.04)
+  - cd /tmp
+  - gp_version=5.0.1
+  - wget https://sourceforge.net/projects/gnuplot/files/gnuplot/$gp_version/gnuplot-$gp_version.tar.gz
+  - tar -xf gnuplot-$gp_version.tar.gz
+  - cd gnuplot-$gp_version
+  - ./configure --prefix=$HOME/local
+  - make -j2
+  - make install
+  - export PATH="$HOME/local/bin:$PATH"
+  - gnuplot --version
+  
+  
+  - cd $TRAVIS_BUILD_DIR
+
+  - perl Makefile.PL
+  - cpanm --installdeps -n .
+
+script:
+  - make
+  - prove --verbose --blib t
