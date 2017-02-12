@@ -1,0 +1,22 @@
+configuration:
+  - gnuplot
+  - gnuplot.portable
+  
+install:
+  # Install Strawberry Perl
+  - choco install strawberryperl
+  - path C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
+  - perl -V
+  
+  # Install gnuplot
+  - choco install %configuration%
+  - path C:\Program Files\gnuplot\bin;%PATH%
+  - gnuplot --version
+
+build_script:
+  - perl Makefile.PL
+  - cpanm -n --installdeps .
+  - dmake
+  - prove --verbose --blib t
+
+  
