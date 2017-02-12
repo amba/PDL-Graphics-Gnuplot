@@ -3,10 +3,12 @@ sudo: false
 language: perl
 perl:
   - "5.24"
+  - "5.20"
 env:
   - gp_version="4.6.0"
   - gp_version="4.6.6"
   - gp_version="5.0.0"
+  - gp_version="5.0.3"
   - gp_version="5.0.4"
   - gp_version="5.0.5"
 
